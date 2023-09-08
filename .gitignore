@@ -1,0 +1,5 @@
+# Python generated files
+__pycache__
+*.log
+*.bmp
+ACQ-IR-*/

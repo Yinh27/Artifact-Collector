@@ -1,0 +1,19 @@
+SET:CopyPath=Part
+SAY:
+SAY: [+] Gathering Open Files/Process Information...
+SAY:
+ACQ:\SYS
+EXE:\SYS\Handle.exe -a -u -v /accepteula --exestdout=&acn\SYS\OpenFiles.dat
+VR2:.\SYS\hash.py
+VR0:py &VR2
+CKN:&VR2
+Say:
+Say:[!] hash.py Not Found! Exiting...
+Bye:
+END:
+ACQ:\
+VR1:&ACQ
+Say:
+Say:[+] Hashing Artifacts...
+Say:
+SYS:&VR0 -f &VR1 -o &VR1\hash.txt
