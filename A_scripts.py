@@ -1,7 +1,8 @@
 # ACQ 스크립트들 (copy_path, hash는 다른 스크립트 선택 시 무조건 선택돼야 함)
 acq_scripts = {
     "copy_path": [
-        "SET:CopyPath=Part"
+        "SET:CopyPath=Part",
+        "SAY: I'm Done!"
     ],
     "memory_dump": [
         "SAY:  ",
@@ -22,6 +23,7 @@ acq_scripts = {
         "END:",
         "32B:",
         r"EXE:\MEM\winpmem_mini_x86_rc2.exe &Acq\WinPmemDump.Raw",
+        "SAY: I'm Done!",
         "END:"
 	],
 	"volatility_analysis": [
@@ -72,7 +74,8 @@ acq_scripts = {
         "Say:[+] Creating Process List CSV for Module Processing...",
         r"SYS:&VR0 -r csv -f &VR1 windows.pslist.PsList --exestdout=&acn\VoLoki\PSList.csv",
         "Say:",
-        "Bye:",
+        "SAY: I'm Done!",
+        #"Bye:",
         "END:"
     ],
     "prefetch": [
@@ -88,6 +91,7 @@ acq_scripts = {
         "END:",
         "64B:",
         r'EXE:\SYS\64Bit\WinPrefetchView.exe /scomma "&Acq\pfcsv\&FNM.csv" /prefetchfile "&FOR"',
+        "SAY: I'm Done!",
         "END:"
     ],
     "ntfs": [
@@ -115,6 +119,7 @@ acq_scripts = {
         "SAY: [+] NTFS Artifacts - Now Parsing $MFT...",
         "SAY:",
         r"EXE:\DSK\mftdump.exe &acn\RawData\MFT-&Dsk /o &acn\RawData\parsed_mft-&Dsk.txt",
+        "SAY: I'm Done!",
         "END:"
     ],
     "system_information": [
@@ -132,6 +137,7 @@ acq_scripts = {
         "SAY: [+] Gathering Group Policy Information...",
         "SAY:",
         r"SYS:GPResult /R /Z --exestdout=&acn\GPResult.txt",
+        "SAY: I'm Done!",
         "END:"
     ],
     "registry_hives": [
@@ -143,7 +149,8 @@ acq_scripts = {
         r"EXE:\TSK\sleuthkit-4.10.0-win32\bin\fcat.exe /Windows/System32/Config/SOFTWARE \\.\${SYSTEMDRIVE} --exestdout=&acn\Reg\SOFTWARE",
         r"EXE:\TSK\sleuthkit-4.10.0-win32\bin\fcat.exe /Windows/System32/Config/SAM \\.\${SYSTEMDRIVE} --exestdout=&acn\Reg\SAM",
         r"EXE:\TSK\sleuthkit-4.10.0-win32\bin\fcat.exe /Windows/System32/Config/SYSTEM \\.\${SYSTEMDRIVE} --exestdout=&acn\Reg\SYSTEM",
-        r"EXE:\TSK\sleuthkit-4.10.0-win32\bin\fcat.exe /Windows/AppCompat/Programs/Amcache.hve \\.\${SYSTEMDRIVE} --exestdout=&acn\Reg\Amcache.hve"
+        r"EXE:\TSK\sleuthkit-4.10.0-win32\bin\fcat.exe /Windows/AppCompat/Programs/Amcache.hve \\.\${SYSTEMDRIVE} --exestdout=&acn\Reg\Amcache.hve",
+        "SAY: I'm Done!"
     ],
     "event_viewer_logs" : [
         "SAY:",
@@ -156,7 +163,8 @@ acq_scripts = {
         "SAY: [+] Copying (Sysnative) EventViewer Logs...",
         "SAY:",
         r"ACQ:\Evt\Nativ",
-        r'CPY:"&Win\sysnative\winevt\Logs\*" "&Acq"'
+        r'CPY:"&Win\sysnative\winevt\Logs\*" "&Acq"',
+        "SAY: I'm Done!"
     ],
     "srum_hosts_services": [
         "SAY:",
@@ -172,20 +180,23 @@ acq_scripts = {
         r"ACQ:\SYS\Nativ",
         r'CPY:"&Win\sysnative\Drivers\Etc\*" "&Acq"',
         r'CPY:"&Win\sysnative\sru\SRUDB.dat" "&Acq"',
+        "SAY: I'm Done!"
     ],
     "environment_variables": [
         "SAY:",
         "SAY: [+] Parsing Environment Variables...",
         "SAY:",
         r"ACQ:\SYS",
-        r"SYS:CMD /c Set --exestdout=&acn\SYS\EnVar.dat"
+        r"SYS:CMD /c Set --exestdout=&acn\SYS\EnVar.dat",
+        "SAY: I'm Done!"
     ],
     "patch_list": [
         "SAY:",
         "SAY: [+] Parsing The Patch List...",
         "SAY:",
         r"ACQ:\SYS",
-        r"SYS:WMIC qfe list --exestdout=&acn\SYS\QFEList.dat"
+        r"SYS:WMIC qfe list --exestdout=&acn\SYS\QFEList.dat",
+        "SAY: I'm Done!"
     ],
     "running_process_list": [
         "SAY:",
@@ -194,7 +205,8 @@ acq_scripts = {
         r"ACQ:\SYS",
         r"SYS:Tasklist /v --exestdout=&acn\SYS\Tasklist.dat",
         r"SYS:Tasklist /M --exestdout=&acn\SYS\TaskAll.dat",
-        r"EXE:\SYS\PSList.exe /accepteula -x --exestdout=&acn\SYS\PSList.dat"
+        r"EXE:\SYS\PSList.exe /accepteula -x --exestdout=&acn\SYS\PSList.dat",
+        "SAY: I'm Done!"
     ],
     "connection_information": [
         "SAY:",
@@ -202,6 +214,7 @@ acq_scripts = {
         "SAY:",
         r"ACQ:\SYS",
         r"EXE:\SYS\cports.exe /scomma &Acq\CPorts.csv",
+        "SAY: I'm Done!"
     ],
     "ip_config_information": [
         "SAY:",
@@ -209,14 +222,16 @@ acq_scripts = {
         "SAY:",
         r"ACQ:\SYS",
         r"SYS:IPConfig /all --exestdout=&acn\SYS\IPConfig.dat",
-        r"SYS:IPConfig /DisplayDNS --exestdout=&acn\SYS\IPCfgDNS.dat"
+        r"SYS:IPConfig /DisplayDNS --exestdout=&acn\SYS\IPCfgDNS.dat",
+        "SAY: I'm Done!"
     ],
     "arp_information": [
         "SAY:",
         "SAY: [+] Gathering ARP Information...",
         "SAY:",
         r"ACQ:\SYS",
-        r"SYS:arp -a --exestdout=&acn\SYS\ArpInfo.dat"
+        r"SYS:arp -a --exestdout=&acn\SYS\ArpInfo.dat",
+        "SAY: I'm Done!"
     ],
     "netbios_information": [
         "SAY:",
@@ -228,6 +243,7 @@ acq_scripts = {
         "END:",
         r"CKY:&Win\sysnative\NBTStat.exe",
         r"SYS:&Win\sysnative\NBTStat.exe -scn --exestdout=&acn\SYS\NetBios-2.dat",
+        "SAY: I'm Done!",
         "END:"
     ],
     "open_files_process_information": [
@@ -235,7 +251,8 @@ acq_scripts = {
         "SAY: [+] Gathering Open Files/Process Information...",
         "SAY:",
         r"ACQ:\SYS",
-        r"EXE:\SYS\Handle.exe -a -u -v /accepteula --exestdout=&acn\SYS\OpenFiles.dat"
+        r"EXE:\SYS\Handle.exe -a -u -v /accepteula --exestdout=&acn\SYS\OpenFiles.dat",
+        "SAY: I'm Done!"
     ],
     "scheduled_task_information": [
         "SAY:",
@@ -243,14 +260,16 @@ acq_scripts = {
         "SAY:",
         r"ACQ:\SYS",
         r"SYS:At --exestdout=&acn\SYS\SchedTasks.dat",
-        r"SYS:Schtasks /query /fo LIST /v --exestdout=&acn\SYS\SchedTasks-2.dat"
+        r"SYS:Schtasks /query /fo LIST /v --exestdout=&acn\SYS\SchedTasks-2.dat",
+        "SAY: I'm Done!"
     ],
     "system_login_information": [
         "SAY:",
         "SAY: [+] Gathering System Logon Information...",
         "SAY:",
         r"ACQ:\SYS",
-        r"EXE:\SYS\PSLoggedon.exe /accepteula --exestdout=&acn\SYS\Logon.dat"
+        r"EXE:\SYS\PSLoggedon.exe /accepteula --exestdout=&acn\SYS\Logon.dat",
+        "SAY: I'm Done!"
     ],
     "services_information": [
         "SAY:",
@@ -259,19 +278,22 @@ acq_scripts = {
         r"ACQ:\SYS",
         r"SYS:Net Start --exestdout=&acn\SYS\Services.dat",
         r"SYS:sc query type= service state= all --exestdout=&acn\SYS\Services-2.dat",
-        r"SYS:Tasklist /SVC --exestdout=&acn\SYS\Services-3.dat"
+        r"SYS:Tasklist /SVC --exestdout=&acn\SYS\Services-3.dat",
+        "SAY: I'm Done!"
     ],
     "last_activity_information": [
         "SAY:",
         "SAY: [+] Gathering Last Activity Information...",
         "SAY:",
-        r"EXE:\SYS\LastActivityView.exe /scomma &Acq\LastActivity.csv"
+        r"EXE:\SYS\LastActivityView.exe /scomma &Acq\LastActivity.csv",
+        "SAY: I'm Done!"
     ],
     "user_assist_information": [
         "SAY:",
         "SAY: [+] Gathering User Assist Information...",
         "SAY:",
         r"EXE:\SYS\UserAssistView.exe /scomma &Acq\UserAssist.csv",
+        "SAY: I'm Done!"
     ],
     "autorun_information": [
         "SAY:",
@@ -282,7 +304,8 @@ acq_scripts = {
         r"EXE:\SYS\Autorunsc.exe /accepteula -a * -c -h --exestdout=&acn\Arn\AutoRun.dat",
         r"EXE:\SYS\Autorunsc.exe /accepteula -cvm --exestdout=&acn\Arn\AutoRun.cpy",
         r"LST:&acn\Arn\AutoRun.cpy",
-        'CPY:"&LS8" "&ACQ"'
+        'CPY:"&LS8" "&ACQ"',
+        "SAY: I'm Done!"
     ],
     "user_registry": [
         "SAY:",
@@ -295,7 +318,8 @@ acq_scripts = {
         "SAY:",
         r"FOR:${SYSTEMDRIVE}\Users\*\[Nn][Tt][Uu][Ss][Ee][Rr].[Dd][Aa][Tt]",
         r"ACQ:\Reg\&FO2",
-        r"EXE:\TSK\sleuthkit-4.10.0-win32\bin\fcat.exe /&FO1/&FO2/&FO3 \\.\${SYSTEMDRIVE} --exestdout=&acn\Reg\&FO2\&FNM"
+        r"EXE:\TSK\sleuthkit-4.10.0-win32\bin\fcat.exe /&FO1/&FO2/&FO3 \\.\${SYSTEMDRIVE} --exestdout=&acn\Reg\&FO2\&FNM",
+        "SAY: I'm Done!"
     ],
     "browser_history": [
         "SAY:",
@@ -303,7 +327,8 @@ acq_scripts = {
         "SAY:",
         r"ACQ:\Brw",
         r"EXE:\SYS\BrowsingHistoryView.exe /scomma &Acq\BrowseHist.csv",
-        r"EXE:\SYS\BrowsingHistoryView.exe /shtml &Acq\BrowseHist.htm"
+        r"EXE:\SYS\BrowsingHistoryView.exe /shtml &Acq\BrowseHist.htm",
+        "SAY: I'm Done!"
     ],
     "recycle.bin": [
         "SAY:",
@@ -311,14 +336,16 @@ acq_scripts = {
         "SAY:",
         "DSK:Fixed",
         r"ACQ:\RBin",
-        r'CPY:"&Dsk:\$Recycle.Bin\**\*" "&Acq"'
+        r'CPY:"&Dsk:\$Recycle.Bin\**\*" "&Acq"',
+        "SAY: I'm Done!"
     ],
     "powershell_logs": [
         "SAY:",
         "SAY: [+] Copying all User PowerShell Logs...",
         "SAY:",
         r"ACQ:\Psh",
-        r'CPY:"${SYSTEMDRIVE}\Users\*\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\*" "&Acq"'
+        r'CPY:"${SYSTEMDRIVE}\Users\*\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\*" "&Acq"',
+        "SAY: I'm Done!"
     ],
     "recent_lnk": [
         "SAY:",
@@ -340,14 +367,16 @@ acq_scripts = {
         "Say:",
         "Say:[+] Parsing LNK Files...",
         "Say:",
-        r"SYS:&VR0 -f &VR1 -o &VR1\parsed_lnk.csv"
+        r"SYS:&VR0 -f &VR1 -o &VR1\parsed_lnk.csv",
+        "SAY: I'm Done!"
     ],
     "wmi_database": [
         "SAY:",
         "SAY: [+] Copying WMI CIM database files...",
         "SAY:",
         r"ACQ:\WMI",
-        r'CPY:"${SYSTEMDRIVE}\Windows\System32\wbem\Repository\*" "&Acq"'
+        r'CPY:"${SYSTEMDRIVE}\Windows\System32\wbem\Repository\*" "&Acq"',
+        "SAY: I'm Done!"
     ],
     "pca": [
         "VER:Windows 10.0.2",
@@ -355,6 +384,7 @@ acq_scripts = {
         "SAY:",
         r"ACQ:\PCA",
         r'CPY:"${SYSTEMDRIVE}\Windows\appcompat\pca\*.txt" "&Acq"',
+        "SAY: I'm Done!",
         "END:"
     ],
     "windows_task_xml_files": [
@@ -362,7 +392,8 @@ acq_scripts = {
         "SAY: [+] Copying Windows Task XML Files...",
         "SAY:",
         r"ACQ:\Sch",
-        r'CPY:"&Win\System32\Tasks\**\*" "&Acq"'
+        r'CPY:"&Win\System32\Tasks\**\*" "&Acq"',
+        "SAY: I'm Done!"
     ],
     "bmc": [
         "SAY:",
@@ -378,7 +409,8 @@ acq_scripts = {
 
         r'VR3:"${SYSTEMDRIVE}\Users\${USERNAME}\AppData\Local\Microsoft\Terminal Server Client\Cache"',
         r"ACQ:\BMC_Results",
-        r"SYS:&VR0 -s &VR3 -d &Acq"
+        r"SYS:&VR0 -s &VR3 -d &Acq",
+        "SAY: I'm Done!"
     ],
     "hash": [
         r"VR2:.\SYS\hash.py",
@@ -394,7 +426,8 @@ acq_scripts = {
         "Say:",
         "Say:[+] Hashing Artifacts...",
         "Say:",
-        r"SYS:&VR0 -f &VR1 -o &VR1\hash.txt"
+        r"SYS:&VR0 -f &VR1 -o &VR1\hash.txt",
+        "SAY: I'm Done!"
     ]
 }
 
