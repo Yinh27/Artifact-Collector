@@ -4,8 +4,8 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import Qt
 from PyQt5 import uic
 import os
-import subprocess
 import A_scripts
+from progressWindow import ProgressWindow
 
 form_collectWindow = uic.loadUiType("UI/collectWindow.ui")[0]
 class CollectWindow(QDialog, QWidget,form_collectWindow):
@@ -89,21 +89,6 @@ class CollectWindow(QDialog, QWidget,form_collectWindow):
         combined_content = "\n".join("\n".join(A_scripts.acq_scripts[script]) for script in selected_scripts)
         with open("Test.ACQ", "w") as output_file:
             output_file.write(combined_content)
-            
-        #run bmc-tools
-        # if self.bmcCheck.isChecked():
-        #     user_home_directory = os.path.expanduser("~")
-            
-        #     src_path = user_home_directory + "\\AppData\\Local\\Microsoft\\Terminal Server Client\\Cache"
-        #     bmc_cmd = ["python", "bmc-tools/bmc-tools.py", "-s", src_path, "-d", "BMC_Results"]
-        #     subprocess.run(bmc_cmd, shell=True)
         
-        if acq_flag == True:    
-            command = ["AchoirX.exe", "/INI:Test.ACQ"]
-            subprocess.run(command, shell=True)
-            
-        msg = QMessageBox()
-        msg.setIcon(QMessageBox.Information)
-        msg.setText("작업이 완료되었습니다!")
-        msg.setWindowTitle("완료")
-        msg.exec_()
+        if acq_flag == True:
+            self.test = ProgressWindow(len(selected_scripts))
