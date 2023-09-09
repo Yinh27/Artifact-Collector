@@ -364,6 +364,22 @@ acq_scripts = {
         r"ACQ:\Sch",
         r'CPY:"&Win\System32\Tasks\**\*" "&Acq"'
     ],
+    "bmc": [
+        "SAY:",
+        "SAY: [+] Parsing RDP Bitmap Cache...",
+        "SAY:",
+        r"VR2:.\bmc-tools\bmc-tools.py",
+        "VR0:py &VR2",
+        "CKN:&VR2",
+        "Say:",
+        "Say:[!] bmc-tools.py Not Found! Exiting...",
+        "Bye:",
+        "END:",
+
+        r'VR3:"${SYSTEMDRIVE}\Users\${USERNAME}\AppData\Local\Microsoft\Terminal Server Client\Cache"',
+        r"ACQ:\BMC_Results",
+        r"SYS:&VR0 -s &VR3 -d &Acq"
+    ],
     "hash": [
         r"VR2:.\SYS\hash.py",
         "VR0:py &VR2",

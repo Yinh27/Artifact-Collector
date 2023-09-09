@@ -65,7 +65,8 @@ class CollectWindow(QDialog, QWidget,form_collectWindow):
         self.lnkfCheck: "recent_lnk",
         self.wmiCheck: "wmi_database",
         self.pcaCheck: "pca",
-        self.xmlCheck: "windows_task_xml_files"
+        self.xmlCheck: "windows_task_xml_files",
+        self.bmcCheck: "bmc"
         }
         #check scripts
         acq_flag = False
@@ -78,6 +79,9 @@ class CollectWindow(QDialog, QWidget,form_collectWindow):
             for checkbox, script_name in checkbox_map.items():
                 if checkbox.isChecked():
                     acq_flag = True
+                    # 'CP949' codec error correction
+                    if script_name == "volatility_analysis":
+                        os.environ['PYTHONIOENCODING'] = 'UTF-8'
                     selected_scripts.append(script_name)
                 
         selected_scripts.append("hash")
@@ -87,12 +91,12 @@ class CollectWindow(QDialog, QWidget,form_collectWindow):
             output_file.write(combined_content)
             
         #run bmc-tools
-        if self.bmcCheck.isChecked():
-            user_home_directory = os.path.expanduser("~")
+        # if self.bmcCheck.isChecked():
+        #     user_home_directory = os.path.expanduser("~")
             
-            src_path = user_home_directory + "\\AppData\\Local\\Microsoft\\Terminal Server Client\\Cache"
-            bmc_cmd = ["python", "bmc-tools/bmc-tools.py", "-s", src_path, "-d", "BMC_Results"]
-            subprocess.run(bmc_cmd, shell=True)
+        #     src_path = user_home_directory + "\\AppData\\Local\\Microsoft\\Terminal Server Client\\Cache"
+        #     bmc_cmd = ["python", "bmc-tools/bmc-tools.py", "-s", src_path, "-d", "BMC_Results"]
+        #     subprocess.run(bmc_cmd, shell=True)
         
         if acq_flag == True:    
             command = ["AchoirX.exe", "/INI:Test.ACQ"]
