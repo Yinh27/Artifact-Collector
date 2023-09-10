@@ -2,7 +2,6 @@
 
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
-from PyQt5.QtWidgets import QWidget
 import re
 
 form_fileWindow = uic.loadUiType("UI/fileWindow.ui")[0]
