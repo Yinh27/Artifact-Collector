@@ -20,6 +20,7 @@ acq_scripts = {
         r"ACQ:\MemDump",
         "64B:",
         r"EXE:\MEM\winpmem_mini_x64_rc2.exe &Acq\WinPmemDump.Raw",
+        "SAY: I'm Done!",
         "END:",
         "32B:",
         r"EXE:\MEM\winpmem_mini_x86_rc2.exe &Acq\WinPmemDump.Raw",
