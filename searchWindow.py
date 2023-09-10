@@ -1,6 +1,7 @@
-from PyQt5.QtWidgets import QMainWindow, QTreeView, QFileSystemModel, QVBoxLayout, QWidget, QLineEdit, QPushButton, QTextEdit
+from PyQt5.QtWidgets import QMainWindow, QTreeView, QFileSystemModel, QVBoxLayout, QWidget, QLineEdit, QPushButton, QTextEdit, QAction
 from PyQt5.QtCore import QDir
 import os
+from fileWindow import FileWindow
 
 class FileSearchApp(QMainWindow):
     def __init__(self):
@@ -26,20 +27,27 @@ class FileSearchApp(QMainWindow):
         self.tree_view = QTreeView()
         self.tree_view.setModel(self.model)
         self.tree_view.setRootIndex(self.model.index(QDir.currentPath()))
+        self.tree_view.doubleClicked.connect(self.open_file)
 
         layout.addWidget(self.tree_view)
 
         # 검색 기능 추가
         self.search_edit = QLineEdit()
         self.search_button = QPushButton("검색")
-        self.result_text = QTextEdit()
-        self.result_text.setReadOnly(True)
+        self.search_result_text = QTextEdit()
+        self.search_result_text.setReadOnly(True)
 
         layout.addWidget(self.search_edit)
         layout.addWidget(self.search_button)
-        layout.addWidget(self.result_text)
+        layout.addWidget(self.search_result_text)
 
         self.search_button.clicked.connect(self.search_files)
+        
+        menubar = self.menuBar()
+        file_menu = menubar.addMenu('파일')
+        open_action = QAction('열기', self)
+        #open_action.triggered.connect(self.open_file_dialog)
+        file_menu.addAction(open_action)
 
     def search_files(self):
         keyword = self.search_edit.text()
@@ -54,4 +62,21 @@ class FileSearchApp(QMainWindow):
                 if keyword in filename:
                     result_text += os.path.join(dirpath, filename) + "\n"
 
-        self.result_text.setPlainText(result_text)
+        self.search_result_text.setPlainText(result_text)
+        
+    def open_file(self, index):
+        file_path = self.model.filePath(index)
+        if os.path.isfile(file_path):
+            try:
+                with open(file_path, 'r', encoding='utf-8') as file:
+                    file_contents = file.read()
+                    self.contents = FileWindow(file_contents)
+            except UnicodeDecodeError:
+                try:
+                    with open(file_path, 'r', encoding='ANSI') as file:
+                        file_contents = file.read()
+                    self.contents = FileWindow(file_contents)
+                except Exception as e:
+                    self.search_result_text.setPlainText(f"파일을 열 수 없음: {str(e)}")
+            except Exception as e:
+                self.search_result_text.setPlainText(f"파일을 열 수 없음: {str(e)}")
