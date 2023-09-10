@@ -20,12 +20,12 @@ acq_scripts = {
         r"ACQ:\MemDump",
         "64B:",
         r"EXE:\MEM\winpmem_mini_x64_rc2.exe &Acq\WinPmemDump.Raw",
-        "SAY: I'm Done!",
         "END:",
         "32B:",
         r"EXE:\MEM\winpmem_mini_x86_rc2.exe &Acq\WinPmemDump.Raw",
-        "SAY: I'm Done!",
-        "END:"
+        "END:",
+        "SAY: I'm Done!"
+        
 	],
 	"volatility_analysis": [
         r"VR2:.\Vol\Volatility3-2.4.1\vol.py",
@@ -75,9 +75,9 @@ acq_scripts = {
         "Say:[+] Creating Process List CSV for Module Processing...",
         r"SYS:&VR0 -r csv -f &VR1 windows.pslist.PsList --exestdout=&acn\VoLoki\PSList.csv",
         "Say:",
-        "SAY: I'm Done!",
         #"Bye:",
-        "END:"
+        "END:",
+        "SAY: I'm Done!"
     ],
     "prefetch": [
         "VER:Windows",
@@ -92,8 +92,8 @@ acq_scripts = {
         "END:",
         "64B:",
         r'EXE:\SYS\64Bit\WinPrefetchView.exe /scomma "&Acq\pfcsv\&FNM.csv" /prefetchfile "&FOR"',
-        "SAY: I'm Done!",
-        "END:"
+        "END:",
+        "SAY: I'm Done!"
     ],
     "ntfs": [
         "VER:Windows",
@@ -120,8 +120,8 @@ acq_scripts = {
         "SAY: [+] NTFS Artifacts - Now Parsing $MFT...",
         "SAY:",
         r"EXE:\DSK\mftdump.exe &acn\RawData\MFT-&Dsk /o &acn\RawData\parsed_mft-&Dsk.txt",
-        "SAY: I'm Done!",
-        "END:"
+        "END:",
+        "SAY: I'm Done!"
     ],
     "system_information": [
         "VER:Windows",
@@ -138,8 +138,8 @@ acq_scripts = {
         "SAY: [+] Gathering Group Policy Information...",
         "SAY:",
         r"SYS:GPResult /R /Z --exestdout=&acn\GPResult.txt",
-        "SAY: I'm Done!",
-        "END:"
+        "END:",
+        "SAY: I'm Done!"
     ],
     "registry_hives": [
         "SAY:",
@@ -244,8 +244,8 @@ acq_scripts = {
         "END:",
         r"CKY:&Win\sysnative\NBTStat.exe",
         r"SYS:&Win\sysnative\NBTStat.exe -scn --exestdout=&acn\SYS\NetBios-2.dat",
-        "SAY: I'm Done!",
-        "END:"
+        "END:",
+        "SAY: I'm Done!"
     ],
     "open_files_process_information": [
         "SAY:",
@@ -385,8 +385,8 @@ acq_scripts = {
         "SAY:",
         r"ACQ:\PCA",
         r'CPY:"${SYSTEMDRIVE}\Windows\appcompat\pca\*.txt" "&Acq"',
-        "SAY: I'm Done!",
-        "END:"
+        "END:",
+        "SAY: I'm Done!"
     ],
     "windows_task_xml_files": [
         "SAY:",
