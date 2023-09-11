@@ -1,0 +1,306 @@
+SET:CopyPath=Part
+SAY: I'm Done!
+SAY:  
+VER:Windows
+SAY:
+SAY:[+] Now Dumping Memory...
+SAY:
+SAY:  WARNING: This will take while, and will create a HUGE memory image File.
+SAY:
+N<<:&Dsa &Mem
+SAY:[!] Not Enough disk space in &ACQ to Capture Memory: &MEM ...
+SAY:[!] Bypassing Memory Capture!
+END:
+N>>:&Dsa &Mem
+ACQ:\MemDump
+64B:
+EXE:\MEM\winpmem_mini_x64_rc2.exe &Acq\WinPmemDump.Raw
+END:
+32B:
+EXE:\MEM\winpmem_mini_x86_rc2.exe &Acq\WinPmemDump.Raw
+END:
+SAY: I'm Done!
+VER:Windows
+SAY:[+] Prefetch - Extracting Prefetch Directory...
+ACQ:\Prfpy
+CPY:"&Win\prefetch\**\*" "&Acq"
+ACQ:\Prfpy\pfcsv
+ACQ:\Prfpy
+FOR:&Acq\*.pf
+32B:
+EXE:\SYS\WinPrefetchView.exe /scomma "&Acq\pfcsv\&FNM.csv" /prefetchfile "&FOR"
+END:
+64B:
+EXE:\SYS\64Bit\WinPrefetchView.exe /scomma "&Acq\pfcsv\&FNM.csv" /prefetchfile "&FOR"
+END:
+SAY: I'm Done!
+VER:Windows
+SAY:
+SAY: [+] NTFS Artifacts - Copy Raw $MFT(s)...
+SAY:
+DSK:Fixed
+ACQ:\RawData
+EXE:\TSK\sleuthkit-4.10.0-win32\bin\fcat.exe -f ntfs $MFT \\.\&dsk: --exestdout=&acn\RawData\MFT-&Dsk
+SAY:
+SAY: [+] NTFS Artifacts - Copy Raw $LogFile...
+SAY:
+EXE:\TSK\sleuthkit-4.10.0-win32\bin\fcat.exe -f ntfs $LogFile \\.\&dsk: --exestdout=&acn\RawData\LogFile-&Dsk
+SAY:
+SAY: [+] NTFS Artifacts - Now Extracting USNJrnl...
+SAY:
+EXE:\DSK\ExtractUSNJrnl.exe /DevicePath:c: /OutputPath:&Acq
+SAY:
+SAY: [+] NTFS Artifacts - Now Parsing USNJrnl...
+SAY:
+SYS:fsutil usn enumdata 1 0 1 C: --exestdout=&acn\RawData\USNJrnl.dat
+SYS:fsutil usn readjournal C: csv --exestdout=&acn\RawData\USNJrnl.csv
+SAY:
+SAY: [+] NTFS Artifacts - Now Parsing $MFT...
+SAY:
+EXE:\DSK\mftdump.exe &acn\RawData\MFT-&Dsk /o &acn\RawData\parsed_mft-&Dsk.txt
+END:
+SAY: I'm Done!
+VER:Windows
+SAY:
+SAY: [+] Gathering System Information...
+SAY:
+ACQ:\
+EXE:\SYS\PSInfo.exe /accepteula -s --exestdout=&acn\Info.dat
+SAY:
+SAY: [+] Gathering System Audit Information...
+SAY:
+EXE:\SYS\WinAudit.exe /r=gsoPxuTUeERNtnzDaIbMpmidcSArCOHG /f=&Acq\WinAudit.htm /l=&Acq\WinAudLog.txt
+SAY:
+SAY: [+] Gathering Group Policy Information...
+SAY:
+SYS:GPResult /R /Z --exestdout=&acn\GPResult.txt
+END:
+SAY: I'm Done!
+SAY:
+SAY: [+] Raw Copy Registry Hives...
+SAY:
+ACQ:\Reg
+EXE:\TSK\sleuthkit-4.10.0-win32\bin\fcat.exe /Windows/System32/Config/SECURITY \\.\${SYSTEMDRIVE} --exestdout=&acn\Reg\SECURITY
+EXE:\TSK\sleuthkit-4.10.0-win32\bin\fcat.exe /Windows/System32/Config/SOFTWARE \\.\${SYSTEMDRIVE} --exestdout=&acn\Reg\SOFTWARE
+EXE:\TSK\sleuthkit-4.10.0-win32\bin\fcat.exe /Windows/System32/Config/SAM \\.\${SYSTEMDRIVE} --exestdout=&acn\Reg\SAM
+EXE:\TSK\sleuthkit-4.10.0-win32\bin\fcat.exe /Windows/System32/Config/SYSTEM \\.\${SYSTEMDRIVE} --exestdout=&acn\Reg\SYSTEM
+EXE:\TSK\sleuthkit-4.10.0-win32\bin\fcat.exe /Windows/AppCompat/Programs/Amcache.hve \\.\${SYSTEMDRIVE} --exestdout=&acn\Reg\Amcache.hve
+SAY: I'm Done!
+SAY:
+SAY: [+] Copying (System32) EventViewer Logs...
+SAY:
+ACQ:\Evt
+ACQ:\Evt\Sys32
+CPY:"&Win\System32\winevt\Logs\*" "&Acq"
+SAY:
+SAY: [+] Copying (Sysnative) EventViewer Logs...
+SAY:
+ACQ:\Evt\Nativ
+CPY:"&Win\sysnative\winevt\Logs\*" "&Acq"
+SAY: I'm Done!
+SAY:
+SAY: [+] Parsing (System32) Etc Directory, and SRUM...
+SAY:
+ACQ:\SYS
+ACQ:\SYS\Sys32
+CPY:"&Win\System32\Drivers\Etc\*" "&Acq"
+CPY:"&Win\System32\sru\SRUDB.dat" "&Acq"
+SAY:
+SAY: [+] Parsing (Sysnative) Hosts And Services Directory...
+SAY:
+ACQ:\SYS\Nativ
+CPY:"&Win\sysnative\Drivers\Etc\*" "&Acq"
+CPY:"&Win\sysnative\sru\SRUDB.dat" "&Acq"
+SAY: I'm Done!
+SAY:
+SAY: [+] Parsing Environment Variables...
+SAY:
+ACQ:\SYS
+SYS:CMD /c Set --exestdout=&acn\SYS\EnVar.dat
+SAY: I'm Done!
+SAY:
+SAY: [+] Parsing The Patch List...
+SAY:
+ACQ:\SYS
+SYS:WMIC qfe list --exestdout=&acn\SYS\QFEList.dat
+SAY: I'm Done!
+SAY:
+SAY: [+] Gathering Running Process List Information...
+SAY:
+ACQ:\SYS
+SYS:Tasklist /v --exestdout=&acn\SYS\Tasklist.dat
+SYS:Tasklist /M --exestdout=&acn\SYS\TaskAll.dat
+EXE:\SYS\PSList.exe /accepteula -x --exestdout=&acn\SYS\PSList.dat
+SAY: I'm Done!
+SAY:
+SAY: [+] Gathering Connection Information...
+SAY:
+ACQ:\SYS
+EXE:\SYS\cports.exe /scomma &Acq\CPorts.csv
+SAY: I'm Done!
+SAY:
+SAY: [+] Gathering IP Config Information...
+SAY:
+ACQ:\SYS
+SYS:IPConfig /all --exestdout=&acn\SYS\IPConfig.dat
+SYS:IPConfig /DisplayDNS --exestdout=&acn\SYS\IPCfgDNS.dat
+SAY: I'm Done!
+SAY:
+SAY: [+] Gathering ARP Information...
+SAY:
+ACQ:\SYS
+SYS:arp -a --exestdout=&acn\SYS\ArpInfo.dat
+SAY: I'm Done!
+SAY:
+SAY: [+] Gathering NetBIOS Information...
+SAY:
+ACQ:\SYS
+CKY:&Win\System32\NBTStat.exe
+SYS:&Win\System32\NBTStat.exe -scn --exestdout=&acn\SYS\NetBios.dat
+END:
+CKY:&Win\sysnative\NBTStat.exe
+SYS:&Win\sysnative\NBTStat.exe -scn --exestdout=&acn\SYS\NetBios-2.dat
+END:
+SAY: I'm Done!
+SAY:
+SAY: [+] Gathering Open Files/Process Information...
+SAY:
+ACQ:\SYS
+EXE:\SYS\Handle.exe -a -u -v /accepteula --exestdout=&acn\SYS\OpenFiles.dat
+SAY: I'm Done!
+SAY:
+SAY: [+] Gathering Scheduled Task Information...
+SAY:
+ACQ:\SYS
+SYS:At --exestdout=&acn\SYS\SchedTasks.dat
+SYS:Schtasks /query /fo LIST /v --exestdout=&acn\SYS\SchedTasks-2.dat
+SAY: I'm Done!
+SAY:
+SAY: [+] Gathering System Logon Information...
+SAY:
+ACQ:\SYS
+EXE:\SYS\PSLoggedon.exe /accepteula --exestdout=&acn\SYS\Logon.dat
+SAY: I'm Done!
+SAY:
+SAY: [+] Gathering Services Information...
+SAY:
+ACQ:\SYS
+SYS:Net Start --exestdout=&acn\SYS\Services.dat
+SYS:sc query type= service state= all --exestdout=&acn\SYS\Services-2.dat
+SYS:Tasklist /SVC --exestdout=&acn\SYS\Services-3.dat
+SAY: I'm Done!
+SAY:
+SAY: [+] Gathering Last Activity Information...
+SAY:
+EXE:\SYS\LastActivityView.exe /scomma &Acq\LastActivity.csv
+SAY: I'm Done!
+SAY:
+SAY: [+] Gathering User Assist Information...
+SAY:
+EXE:\SYS\UserAssistView.exe /scomma &Acq\UserAssist.csv
+SAY: I'm Done!
+SAY:
+SAY: [+] Gathering AutoRun Information...
+SAY:
+ACQ:\Arn
+SAY:
+EXE:\SYS\Autorunsc.exe /accepteula -a * -c -h --exestdout=&acn\Arn\AutoRun.dat
+EXE:\SYS\Autorunsc.exe /accepteula -cvm --exestdout=&acn\Arn\AutoRun.cpy
+LST:&acn\Arn\AutoRun.cpy
+CPY:"&LS8" "&ACQ"
+SAY: I'm Done!
+SAY:
+SAY: [+] Gathering Current (Open) User Registry...
+SAY:
+ACQ:\Reg
+SYS:Reg Save HKCU &Acq\NTUSER.DAT
+SAY:
+SAY: [+] Gathering All User Registries...
+SAY:
+FOR:${SYSTEMDRIVE}\Users\*\[Nn][Tt][Uu][Ss][Ee][Rr].[Dd][Aa][Tt]
+ACQ:\Reg\&FO2
+EXE:\TSK\sleuthkit-4.10.0-win32\bin\fcat.exe /&FO1/&FO2/&FO3 \\.\${SYSTEMDRIVE} --exestdout=&acn\Reg\&FO2\&FNM
+SAY: I'm Done!
+SAY:
+SAY: [+] Now Extracting Browser History...
+SAY:
+ACQ:\Brw
+EXE:\SYS\BrowsingHistoryView.exe /scomma &Acq\BrowseHist.csv
+EXE:\SYS\BrowsingHistoryView.exe /shtml &Acq\BrowseHist.htm
+SAY: I'm Done!
+SAY:
+SAY: [+] Gathering $Recycle.Bin entries (Going 10 Levels Deep)...
+SAY:
+DSK:Fixed
+ACQ:\RBin
+CPY:"&Dsk:\$Recycle.Bin\**\*" "&Acq"
+SAY: I'm Done!
+SAY:
+SAY: [+] Copying all User PowerShell Logs...
+SAY:
+ACQ:\Psh
+CPY:"${SYSTEMDRIVE}\Users\*\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\*" "&Acq"
+SAY: I'm Done!
+SAY:
+SAY: [+] Copying all User Recent LNK files...
+SAY:
+ACQ:\Lnk
+CPY:"${SYSTEMDRIVE}\Users\*\Desktop\*.lnk" "&Acq"
+CPY:"${SYSTEMDRIVE}\Users\*\AppData\Roaming\Microsoft\Windows\Recent\*.lnk" "&Acq"
+VR2:.\SYS\pycode\lnk2csv.exe
+CKN:&VR2
+Say:
+Say:[!] lnk2csv Not Found! Exiting...
+Bye:
+END:
+VR1:&Acq
+Say:
+Say:[+] Parsing LNK Files...
+Say:
+EXE:&VR2 -f &VR1 -o &VR1\parsed_lnk.csv
+SAY: I'm Done!
+SAY:
+SAY: [+] Copying WMI CIM database files...
+SAY:
+ACQ:\WMI
+CPY:"${SYSTEMDRIVE}\Windows\System32\wbem\Repository\*" "&Acq"
+SAY: I'm Done!
+VER:Windows 10.0.2
+SAY: [+] Windows 11 Detected... Copying Program Compatibility Assistant files...
+SAY:
+ACQ:\PCA
+CPY:"${SYSTEMDRIVE}\Windows\appcompat\pca\*.txt" "&Acq"
+END:
+SAY: I'm Done!
+SAY:
+SAY: [+] Copying Windows Task XML Files...
+SAY:
+ACQ:\Sch
+CPY:"&Win\System32\Tasks\**\*" "&Acq"
+SAY: I'm Done!
+SAY:
+SAY: [+] Parsing RDP Bitmap Cache...
+SAY:
+VR2:.\SYS\pycode\bmc-tools.exe
+CKN:&VR2
+Say:
+Say:[!] bmc-tools.exe Not Found! Exiting...
+Bye:
+END:
+VR3:"${SYSTEMDRIVE}\Users\${USERNAME}\AppData\Local\Microsoft\Terminal Server Client\Cache"
+ACQ:\BMC_Results
+EXE:&VR2 -s &VR3 -d &Acq
+SAY: I'm Done!
+VR2:.\SYS\pycode\hash.exe
+CKN:&VR2
+Say:
+Say:[!] hash.exe Not Found! Exiting...
+Bye:
+END:
+ACQ:\
+VR1:&ACQ
+Say:
+Say:[+] Hashing Artifacts...
+Say:
+EXE:&VR2 -f &VR1 -o &VR1\hash.txt
+SAY: I'm Done!

@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>dialog</class>
+ <widget class="QDialog" name="dialog">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>635</width>
+    <height>529</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Collect Options</string>
+  </property>
+  <widget class="QPushButton" name="homeButton">
+   <property name="geometry">
+    <rect>
+     <x>530</x>
+     <y>70</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>home</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="okButton">
+   <property name="geometry">
+    <rect>
+     <x>530</x>
+     <y>40</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>수집</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="memdumpCheck">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>70</y>
+     <width>111</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Memory_Dump</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="pfCheck">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>100</y>
+     <width>121</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Prefetch</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="ntfsCheck">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>130</y>
+     <width>121</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>NTFS</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="sysinfoCheck">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>160</y>
+     <width>131</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>System Information</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="regCheck">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>190</y>
+     <width>131</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Registry Hives</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="evtCheck">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>220</y>
+     <width>131</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>EventViewer Logs</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="srumCheck">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>250</y>
+     <width>151</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>SRUM, Hosts, Services</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="envCheck">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>280</y>
+     <width>151</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Environment Variables</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="patchCheck">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>310</y>
+     <width>151</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Patch List</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="rprocCheck">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>340</y>
+     <width>211</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Running Process List Information</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="conninfoCheck">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>370</y>
+     <width>191</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Connection Information</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="ipconfigCheck">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>400</y>
+     <width>191</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>IP Config Information</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="arpCheck">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>430</y>
+     <width>191</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>ARP Information</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="netbiosCheck">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>460</y>
+     <width>191</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>NetBIOS Information</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="openfpCheck">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>490</y>
+     <width>211</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Open Files/Process Information</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="schtaskCheck">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>40</y>
+     <width>211</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Scheduled Task Information</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="syslogonCheck">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>70</y>
+     <width>211</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>System Logon Information</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="servCheck">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>100</y>
+     <width>211</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Services Information</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="lastactCheck">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>130</y>
+     <width>211</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Last Activity Information</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="usrassistCheck">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>160</y>
+     <width>211</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>User Assist Information</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="autorunCheck">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>190</y>
+     <width>211</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>AutoRun Information</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="usrregCheck">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>220</y>
+     <width>211</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Current/All User Registry</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="brwhistCheck">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>250</y>
+     <width>211</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Browser History</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="recycleCheck">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>280</y>
+     <width>211</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>$Recycle.Bin</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="pwshCheck">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>310</y>
+     <width>211</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>PowerShell Logs</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="lnkfCheck">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>340</y>
+     <width>211</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Recent LNK Files</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="wmiCheck">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>370</y>
+     <width>211</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>WMI CIM database files</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="pcaCheck">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>400</y>
+     <width>311</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Program Compatibility Assistant files(Windows 11)</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="xmlCheck">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>430</y>
+     <width>181</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Windows Task XML Files</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="bmcCheck">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>460</y>
+     <width>181</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>RDP Cache</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="allCheck">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>40</y>
+     <width>111</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>All</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
