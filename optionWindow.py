@@ -22,7 +22,7 @@ class OptionWindow(QDialog, form_optionWindow):
     def vol3_run(self):
         dump_path = self.dir + r"\MemDump\WinPmemDump.Raw"
         VR0 = "python"
-        VR2 = r".\Vol\Volatility3-2.4.1\vol.py"
+        VR2 = r".\Vol\vol.exe"
         vol_list = [["windows.pslist.PsList", r"\VoLoki\PSList.dat"],
                     ["windows.pstree.PsTree", r"\VoLoki\PSTree.dat"],
                     ["windows.psscan.PsScan", r"\VoLoki\PSScan.dat"],
