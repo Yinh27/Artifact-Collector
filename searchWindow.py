@@ -46,7 +46,6 @@ class FileSearchApp(QMainWindow):
         menubar = self.menuBar()
         file_menu = menubar.addMenu('파일')
         open_action = QAction('열기', self)
-        #open_action.triggered.connect(self.open_file_dialog)
         file_menu.addAction(open_action)
 
     def search_files(self):
@@ -77,9 +76,14 @@ class FileSearchApp(QMainWindow):
                     with open(file_path, 'r', encoding='ANSI') as file:
                         file_contents = file.read()
                     self.contents = FileWindow(file_contents)
-                except Exception as e:
-                    self.search_result_text.setPlainText(f"{file_name}을 열 수 없습니다.")
-                    print(str(e))
+                except UnicodeDecodeError:
+                    try:
+                        with open(file_path, 'r', encoding='utf-16-le') as file:
+                            file_contents = file.read()
+                        self.contents = FileWindow(file_contents)
+                    except Exception as e:
+                        self.search_result_text.setPlainText(f"{file_name}을 열 수 없습니다.")
+                        print(str(e))
             except Exception as e:
                 self.search_result_text.setPlainText(f"{file_name}을 열 수 없습니다.")
                 print(str(e))
