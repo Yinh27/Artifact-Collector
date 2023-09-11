@@ -24,7 +24,7 @@
    </property>
    <property name="font">
     <font>
-     <family>Hancom Gothic</family>
+     <family>굴림</family>
      <pointsize>12</pointsize>
      <weight>50</weight>
      <bold>false</bold>
@@ -45,7 +45,7 @@
    </property>
    <property name="font">
     <font>
-     <family>Hancom Gothic</family>
+     <family>굴림</family>
      <pointsize>10</pointsize>
     </font>
    </property>
@@ -87,7 +87,7 @@
    </property>
    <property name="font">
     <font>
-     <family>Hancom Gothic</family>
+     <family>굴림</family>
      <pointsize>10</pointsize>
     </font>
    </property>
@@ -116,7 +116,7 @@
    </property>
    <property name="font">
     <font>
-     <family>Hancom Gothic</family>
+     <family>굴림</family>
      <pointsize>10</pointsize>
     </font>
    </property>
