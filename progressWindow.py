@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QDialog, QMessageBox
 from PyQt5.QtCore import *
 from PyQt5 import uic
 import subprocess
-from searchWindow import FileSearchApp
+from optionWindow import OptionWindow
 
 form_progressWindow = uic.loadUiType("UI/progressWindow.ui")[0]
 
@@ -14,6 +14,7 @@ class CommandRunner(QThread):
         super().__init__()
         self.script_length = script_length
         self.cancelFlag = False
+        self.dir = ''
         
     def run(self):
         command = ["AchoirX.exe", "/INI:Test.ACQ"]
@@ -30,6 +31,10 @@ class CommandRunner(QThread):
             if output == '' and process.poll() is not None:
                 break
             
+            if "WinPmemDump.Raw" in output:
+                self.dir = output.strip()
+                self.dir = self.dir.split("\\")[-3]
+            
             if "I'm Done!" in output:
                     self.progress_updated.emit(100 // self.script_length)
         
@@ -39,14 +44,15 @@ class CommandRunner(QThread):
         self.cancelFlag = True
 
 class ProgressWindow(QDialog, form_progressWindow):
-    def __init__(self, num):
+    def __init__(self, scripts_list):
         super(ProgressWindow, self).__init__()
         self.setupUi(self)
         self.show()
+        self.scripts_list = scripts_list
         
-        self.script_length = num
+        self.script_length = len(scripts_list)
         
-        self.command_runner = CommandRunner(num)
+        self.command_runner = CommandRunner(self.script_length)
         self.command_runner.finished.connect(self.msg_box)
         self.command_runner.progress_updated.connect(self.update_progress)
         self.command_runner.start()
@@ -65,7 +71,8 @@ class ProgressWindow(QDialog, form_progressWindow):
         msg.exec_()
         
         self.close()
-        self.search = FileSearchApp()
+        if "memory_dump" in self.scripts_list:
+            self.search = OptionWindow(self.command_runner.dir)
         
     def update_progress(self, value):
         current_value = self.progressBar.value()

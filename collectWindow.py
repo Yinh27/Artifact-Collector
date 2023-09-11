@@ -1,7 +1,6 @@
 #-*-coding:utf-8-*-
 
 from PyQt5.QtWidgets import *
-from PyQt5.QtCore import Qt
 from PyQt5 import uic
 import os
 import A_scripts
@@ -15,14 +14,7 @@ class CollectWindow(QDialog, QWidget,form_collectWindow):
         self.show()
         
         self.okButton.clicked.connect(self.collect_and_run)
-        self.memdumpCheck.stateChanged.connect(self.update_volatility_check)
         
-    def update_volatility_check(self, state):
-        if state == Qt.Checked:
-            self.volCheck.setEnabled(True)
-        else:
-            self.volCheck.setEnabled(False)
-            self.volCheck.setChecked(False)
             
     def initUI(self):
         self.setupUi(self)
@@ -37,7 +29,6 @@ class CollectWindow(QDialog, QWidget,form_collectWindow):
         
         checkbox_map = {
         self.memdumpCheck: "memory_dump",
-        self.volCheck: "volatility_analysis",
         self.pfCheck: "prefetch",
         self.ntfsCheck: "ntfs",
         self.sysinfoCheck: "system_information",
@@ -79,9 +70,6 @@ class CollectWindow(QDialog, QWidget,form_collectWindow):
             for checkbox, script_name in checkbox_map.items():
                 if checkbox.isChecked():
                     acq_flag = True
-                    # 'CP949' codec error correction
-                    if script_name == "volatility_analysis":
-                        os.environ['PYTHONIOENCODING'] = 'UTF-8'
                     selected_scripts.append(script_name)
                 
         selected_scripts.append("hash")
@@ -91,4 +79,4 @@ class CollectWindow(QDialog, QWidget,form_collectWindow):
             output_file.write(combined_content)
         
         if acq_flag == True:
-            self.test = ProgressWindow(len(selected_scripts))
+            self.test = ProgressWindow(selected_scripts)

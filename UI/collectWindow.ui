@@ -76,30 +76,11 @@
     <string>Memory_Dump</string>
    </property>
   </widget>
-  <widget class="QCheckBox" name="volCheck">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>110</y>
-     <width>121</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Volatility_analysis</string>
-   </property>
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-  </widget>
   <widget class="QCheckBox" name="pfCheck">
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>140</y>
+     <y>110</y>
      <width>121</width>
      <height>16</height>
     </rect>
@@ -112,7 +93,7 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>170</y>
+     <y>140</y>
      <width>121</width>
      <height>16</height>
     </rect>
@@ -125,7 +106,7 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>200</y>
+     <y>170</y>
      <width>131</width>
      <height>16</height>
     </rect>
@@ -138,7 +119,7 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>230</y>
+     <y>200</y>
      <width>131</width>
      <height>16</height>
     </rect>
@@ -151,7 +132,7 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>260</y>
+     <y>230</y>
      <width>131</width>
      <height>16</height>
     </rect>
@@ -164,7 +145,7 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>290</y>
+     <y>260</y>
      <width>151</width>
      <height>16</height>
     </rect>
@@ -177,7 +158,7 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>320</y>
+     <y>290</y>
      <width>151</width>
      <height>16</height>
     </rect>
@@ -190,7 +171,7 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>350</y>
+     <y>320</y>
      <width>151</width>
      <height>16</height>
     </rect>
@@ -203,7 +184,7 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>380</y>
+     <y>350</y>
      <width>211</width>
      <height>16</height>
     </rect>
@@ -216,7 +197,7 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>410</y>
+     <y>380</y>
      <width>191</width>
      <height>16</height>
     </rect>
@@ -229,7 +210,7 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>440</y>
+     <y>410</y>
      <width>191</width>
      <height>16</height>
     </rect>
@@ -242,7 +223,7 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>470</y>
+     <y>440</y>
      <width>191</width>
      <height>16</height>
     </rect>
@@ -255,7 +236,7 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>500</y>
+     <y>470</y>
      <width>191</width>
      <height>16</height>
     </rect>
@@ -267,8 +248,8 @@
   <widget class="QCheckBox" name="openfpCheck">
    <property name="geometry">
     <rect>
-     <x>250</x>
-     <y>50</y>
+     <x>30</x>
+     <y>500</y>
      <width>211</width>
      <height>16</height>
     </rect>
@@ -281,7 +262,7 @@
    <property name="geometry">
     <rect>
      <x>250</x>
-     <y>80</y>
+     <y>50</y>
      <width>211</width>
      <height>16</height>
     </rect>
@@ -294,7 +275,7 @@
    <property name="geometry">
     <rect>
      <x>250</x>
-     <y>110</y>
+     <y>80</y>
      <width>211</width>
      <height>16</height>
     </rect>
@@ -307,7 +288,7 @@
    <property name="geometry">
     <rect>
      <x>250</x>
-     <y>140</y>
+     <y>110</y>
      <width>211</width>
      <height>16</height>
     </rect>
@@ -320,7 +301,7 @@
    <property name="geometry">
     <rect>
      <x>250</x>
-     <y>170</y>
+     <y>140</y>
      <width>211</width>
      <height>16</height>
     </rect>
@@ -333,7 +314,7 @@
    <property name="geometry">
     <rect>
      <x>250</x>
-     <y>200</y>
+     <y>170</y>
      <width>211</width>
      <height>16</height>
     </rect>
@@ -346,7 +327,7 @@
    <property name="geometry">
     <rect>
      <x>250</x>
-     <y>230</y>
+     <y>200</y>
      <width>211</width>
      <height>16</height>
     </rect>
@@ -359,7 +340,7 @@
    <property name="geometry">
     <rect>
      <x>250</x>
-     <y>260</y>
+     <y>230</y>
      <width>211</width>
      <height>16</height>
     </rect>
@@ -372,7 +353,7 @@
    <property name="geometry">
     <rect>
      <x>250</x>
-     <y>290</y>
+     <y>260</y>
      <width>211</width>
      <height>16</height>
     </rect>
@@ -385,7 +366,7 @@
    <property name="geometry">
     <rect>
      <x>250</x>
-     <y>320</y>
+     <y>290</y>
      <width>211</width>
      <height>16</height>
     </rect>
@@ -398,7 +379,7 @@
    <property name="geometry">
     <rect>
      <x>250</x>
-     <y>350</y>
+     <y>320</y>
      <width>211</width>
      <height>16</height>
     </rect>
@@ -411,7 +392,7 @@
    <property name="geometry">
     <rect>
      <x>250</x>
-     <y>380</y>
+     <y>350</y>
      <width>211</width>
      <height>16</height>
     </rect>
@@ -424,7 +405,7 @@
    <property name="geometry">
     <rect>
      <x>250</x>
-     <y>410</y>
+     <y>380</y>
      <width>211</width>
      <height>16</height>
     </rect>
@@ -437,7 +418,7 @@
    <property name="geometry">
     <rect>
      <x>250</x>
-     <y>440</y>
+     <y>410</y>
      <width>311</width>
      <height>16</height>
     </rect>
@@ -450,7 +431,7 @@
    <property name="geometry">
     <rect>
      <x>250</x>
-     <y>470</y>
+     <y>440</y>
      <width>181</width>
      <height>16</height>
     </rect>
@@ -463,7 +444,7 @@
    <property name="geometry">
     <rect>
      <x>250</x>
-     <y>500</y>
+     <y>470</y>
      <width>181</width>
      <height>16</height>
     </rect>
