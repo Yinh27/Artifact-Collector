@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QDialog, QMessageBox
 from PyQt5.QtCore import *
 from PyQt5 import uic
 import subprocess
-from optionWindow import OptionWindow
+# from optionWindow import OptionWindow
 from searchWindow import FileSearchApp
 
 form_progressWindow = uic.loadUiType("UI/progressWindow.ui")[0]
@@ -32,9 +32,9 @@ class CommandRunner(QThread):
             if output == '' and process.poll() is not None:
                 break
             
-            if "WinPmemDump.Raw" in output:
+            '''if "WinPmemDump.Raw" in output:
                 self.dir = output.strip()
-                self.dir = self.dir.split("\\")[-3]
+                self.dir = self.dir.split("\\")[-3]'''
             
             if "I'm Done!" in output:
                     self.progress_updated.emit(100 // self.script_length)
@@ -72,10 +72,11 @@ class ProgressWindow(QDialog, form_progressWindow):
         msg.exec_()
         
         self.close()
-        if "memory_dump" in self.scripts_list:
+        '''if "memory_dump" in self.scripts_list:
             self.search = OptionWindow(self.command_runner.dir)
         else:
-            self.search = FileSearchApp()
+            self.search = FileSearchApp()'''
+        self.search = FileSearchApp()
         
     def update_progress(self, value):
         current_value = self.progressBar.value()

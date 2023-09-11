@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QDialog, QMessageBox
+'''from PyQt5.QtWidgets import QDialog, QMessageBox
 from PyQt5.QtCore import *
 from PyQt5 import uic
 import subprocess
@@ -53,4 +53,4 @@ class OptionWindow(QDialog, form_optionWindow):
     def go_to_search(self):
         self.close()
         self.search = FileSearchApp()
-        
+        '''
