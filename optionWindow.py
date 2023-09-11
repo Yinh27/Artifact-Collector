@@ -38,7 +38,6 @@ class OptionWindow(QDialog, form_optionWindow):
         os.environ['PYTHONIOENCODING'] = 'UTF-8'
         for src, dst in vol_list:
             command = [VR0, VR2, "-f", dump_path, src, ">>", self.dir + dst]
-            print(command)
             subprocess.run(command, shell=True)
             time.sleep(1)
         

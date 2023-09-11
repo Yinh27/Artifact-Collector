@@ -83,7 +83,5 @@ class FileSearchApp(QMainWindow):
                         self.contents = FileWindow(file_contents)
                     except Exception as e:
                         self.search_result_text.setPlainText(f"{file_name}을 열 수 없습니다.")
-                        print(str(e))
             except Exception as e:
                 self.search_result_text.setPlainText(f"{file_name}을 열 수 없습니다.")
-                print(str(e))
