@@ -66,6 +66,7 @@ class FileSearchApp(QMainWindow):
         
     def open_file(self, index):
         file_path = self.model.filePath(index)
+        file_name = file_path.split('/')[-1]
         if os.path.isfile(file_path):
             try:
                 with open(file_path, 'r', encoding='utf-8') as file:
@@ -77,6 +78,8 @@ class FileSearchApp(QMainWindow):
                         file_contents = file.read()
                     self.contents = FileWindow(file_contents)
                 except Exception as e:
-                    self.search_result_text.setPlainText(f"파일을 열 수 없음: {str(e)}")
+                    self.search_result_text.setPlainText(f"{file_name}을 열 수 없습니다.")
+                    print(str(e))
             except Exception as e:
-                self.search_result_text.setPlainText(f"파일을 열 수 없음: {str(e)}")
+                self.search_result_text.setPlainText(f"{file_name}을 열 수 없습니다.")
+                print(str(e))
