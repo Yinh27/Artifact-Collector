@@ -29,7 +29,7 @@ acq_scripts = {
 	],
 	"volatility_analysis": [
         r"VR2:.\Vol\Volatility3-2.4.1\vol.py",
-        "VR0:py &VR2",
+        "VR0:python &VR2",
         "CKN:&VR2",
         "Say:",
         "Say:[!] Volatility Not Found! Exiting...",
@@ -357,7 +357,7 @@ acq_scripts = {
         r'CPY:"${SYSTEMDRIVE}\Users\*\AppData\Roaming\Microsoft\Windows\Recent\*.lnk" "&Acq"',
 
         r"VR2:.\SYS\lnk2csv.py",
-        "VR0:py &VR2",
+        "VR0:python &VR2",
         "CKN:&VR2",
         "Say:",
         "Say:[!] lnk2csv Not Found! Exiting...",
@@ -401,7 +401,7 @@ acq_scripts = {
         "SAY: [+] Parsing RDP Bitmap Cache...",
         "SAY:",
         r"VR2:.\bmc-tools\bmc-tools.py",
-        "VR0:py &VR2",
+        "VR0:python &VR2",
         "CKN:&VR2",
         "Say:",
         "Say:[!] bmc-tools.py Not Found! Exiting...",
@@ -415,7 +415,7 @@ acq_scripts = {
     ],
     "hash": [
         r"VR2:.\SYS\hash.py",
-        "VR0:py &VR2",
+        "VR0:python &VR2",
         "CKN:&VR2",
         "Say:",
         "Say:[!] hash.py Not Found! Exiting...",
