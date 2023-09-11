@@ -1,10 +1,11 @@
-#-*-coding:utf-8-*-
+# -*- coding: utf-8 -*-
 
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
 import re
 
 form_fileWindow = uic.loadUiType("UI/fileWindow.ui")[0]
+
 class FileWindow(QDialog, QWidget, form_fileWindow):
     def __init__(self, contents):
         super(FileWindow, self).__init__()
@@ -12,13 +13,13 @@ class FileWindow(QDialog, QWidget, form_fileWindow):
         
         self.InitUI()
         self.show()
-    
+
     def InitUI(self):
         self.setupUi(self)
         
         self.textBrw.setPlainText(self.file_contents)
         self.searchButton.clicked.connect(self.search_file_contents)
-        
+
     def search_file_contents(self):
         keyword = self.searchLine.text()
         if keyword:
@@ -27,9 +28,10 @@ class FileWindow(QDialog, QWidget, form_fileWindow):
             lines = self.file_contents.split('\n')
             for line in lines:
                 if pattern.search(line):
-                    matched_text += line + '\n' + '\n'
-            self.textBrw.setPlainText(matched_text)
+
+                    line = pattern.sub(r'<span style="background-color: yellow;">\g<0></span>', line)
+                    matched_text += line + '\n'
             
-        elif keyword == "":
+            self.textBrw.setHtml(matched_text)
+        else:
             self.textBrw.setPlainText(self.file_contents)
-            
