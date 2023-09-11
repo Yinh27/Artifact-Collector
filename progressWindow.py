@@ -3,6 +3,7 @@ from PyQt5.QtCore import *
 from PyQt5 import uic
 import subprocess
 from optionWindow import OptionWindow
+from searchWindow import FileSearchApp
 
 form_progressWindow = uic.loadUiType("UI/progressWindow.ui")[0]
 
@@ -73,6 +74,8 @@ class ProgressWindow(QDialog, form_progressWindow):
         self.close()
         if "memory_dump" in self.scripts_list:
             self.search = OptionWindow(self.command_runner.dir)
+        else:
+            self.search = FileSearchApp()
         
     def update_progress(self, value):
         current_value = self.progressBar.value()
