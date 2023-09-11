@@ -35,13 +35,13 @@ class FileWindow(QDialog, QWidget, form_fileWindow):
         self.nextButton.clicked.connect(self.next_text)
         
     def next_text(self):
-        if not (self.fin_line + 20) > len(self.lines):
+        if (self.fin_line + 20) < len(self.lines):
             self.current_page += 1
             self.srt_line += 20
             self.fin_line += 20
             self.textBrw.setPlainText('\n'.join(self.lines[self.srt_line:self.fin_line]))
             self.pagecntLabel.setText(f"{self.current_page} of {self.total_page}")
-        elif (self.srt_line + 20) > len(self.lines):
+        elif (self.fin_line + 20) > len(self.lines):
             self.current_page += 1
             self.srt_line += 20
             self.textBrw.setPlainText('\n'.join(self.lines[self.srt_line:]))
