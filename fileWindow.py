@@ -12,11 +12,20 @@ class FileWindow(QDialog, QWidget, form_fileWindow):
         self.file_contents = contents
         self.lines = self.file_contents.split('\n')
         
+        if len(self.lines) % 20 == 0:
+            self.total_page = len(self.lines) // 20
+        else:
+            self.total_page = len(self.lines) // 20 + 1
+            
+        self.current_page = 1
+        
         self.InitUI()
         self.show()
 
     def InitUI(self):
         self.setupUi(self)
+        
+        self.pagecntLabel.setText(f"{self.current_page} of {self.total_page}")
         self.srt_line = 0
         self.fin_line = 20
         
@@ -27,12 +36,16 @@ class FileWindow(QDialog, QWidget, form_fileWindow):
         
     def next_text(self):
         if not (self.fin_line + 20) > len(self.lines):
+            self.current_page += 1
             self.srt_line += 20
             self.fin_line += 20
             self.textBrw.setPlainText('\n'.join(self.lines[self.srt_line:self.fin_line]))
+            self.pagecntLabel.setText(f"{self.current_page} of {self.total_page}")
         elif (self.srt_line + 20) > len(self.lines):
+            self.current_page += 1
             self.srt_line += 20
             self.textBrw.setPlainText('\n'.join(self.lines[self.srt_line:]))
+            self.pagecntLabel.setText(f"{self.current_page} of {self.total_page}")
         else:
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Information)
@@ -42,9 +55,11 @@ class FileWindow(QDialog, QWidget, form_fileWindow):
             
     def prev_text(self):
         if not (self.srt_line - 20) < 0:
+            self.current_page -= 1
             self.srt_line -= 20
             self.fin_line -= 20
             self.textBrw.setPlainText(str(self.lines[self.srt_line:self.fin_line]))
+            self.pagecntLabel.setText(f"{self.current_page} of {self.total_page}")
         else:
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Information)
